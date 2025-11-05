@@ -8,7 +8,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;              // new numeric id
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -25,6 +25,9 @@ public class User {
     @Column(nullable = false)
     private boolean enabled = false;
 
+    private String phone;    // ✅ ADD THIS
+    private String address;  // ✅ ADD THIS
+
     @Column(name = "verification_otp")
     private String verificationOtp;
 
@@ -32,13 +35,6 @@ public class User {
     private Long otpExpiry;
 
     public User() {}
-
-    public User(String email, String fullname, String password, String role) {
-        this.email = email;
-        this.fullname = fullname;
-        this.password = password;
-        this.role = role;
-    }
 
     // Getters & Setters
 
@@ -65,4 +61,10 @@ public class User {
 
     public Long getOtpExpiry() { return otpExpiry; }
     public void setOtpExpiry(Long otpExpiry) { this.otpExpiry = otpExpiry; }
+
+    public String getPhone() { return phone; }     // ✅ ADD GETTER
+    public void setPhone(String phone) { this.phone = phone; }  // ✅ ADD SETTER
+
+    public String getAddress() { return address; } // ✅ ADD GETTER
+    public void setAddress(String address) { this.address = address; } // ✅ ADD SETTER
 }

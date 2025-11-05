@@ -1,65 +1,65 @@
-package com.example.grievanceportal.config;
+// package com.example.grievanceportal.config;
 
-import com.example.grievanceportal.service.JwtService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+// import com.example.grievanceportal.service.JwtService;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+// import org.springframework.security.config.http.SessionCreationPolicy;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.password.PasswordEncoder;
+// import org.springframework.security.web.SecurityFilterChain;
+// import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
-public class SecurityConfig {
+// @Configuration
+// public class SecurityConfig {
 
-    @Autowired
-    private JwtService jwtService;
+//     @Autowired
+//     private JwtService jwtService;
 
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtService);
-    }
+//     @Bean
+//     public JwtAuthenticationFilter jwtAuthenticationFilter() {
+//         return new JwtAuthenticationFilter(jwtService);
+//     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                // Disable CSRF and use stateless sessions
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//     @Bean
+//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//         http
+//                 // Disable CSRF and use stateless sessions
+//                 .csrf(csrf -> csrf.disable())
+//                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // Authorization rules
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/users/signup",
-                                "/users/signin",
-                                "/users/verify-otp",
-                                "/users/forgetpassword/**",
-                                "/actuator/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
-                )
+//                 // Authorization rules
+//                 .authorizeHttpRequests(auth -> auth
+//                         .requestMatchers(
+//                                 "/users/signup",
+//                                 "/users/signin",
+//                                 "/users/verify-otp",
+//                                 "/users/forgetpassword/**",
+//                                 "/actuator/**"
+//                         ).permitAll()
+//                         .anyRequest().authenticated()
+//                 )
 
-                // Add custom JWT filter
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+//                 // Add custom JWT filter
+//                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 
-                // Disable default login page & logout
-                .formLogin(form -> form.disable())
-                .logout(logout -> logout.disable());
+//                 // Disable default login page & logout
+//                 .formLogin(form -> form.disable())
+//                 .logout(logout -> logout.disable());
 
-        return http.build();
-    }
+//         return http.build();
+//     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//     @Bean
+//     public PasswordEncoder passwordEncoder() {
+//         return new BCryptPasswordEncoder();
+//     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
-}
+//     @Bean
+//     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+//         return configuration.getAuthenticationManager();
+//     }
+// }
